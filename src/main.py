@@ -1,5 +1,6 @@
 import sys
 import uuid
+import cleanMarkdown
 from convGraph import replaceGraphViz
 
 
@@ -14,4 +15,9 @@ if __name__ == "__main__":
     with open(filename, 'r') as file:
         sourceCode = file.read()
         sourceCode = replaceGraphViz(sourceCode, operationUuid=operationUuid)
+        sourceCode = cleanMarkdown.removeTags(sourceCode)
+        title, sourceCode = cleanMarkdown.getTitle(sourceCode)
+        sourceCode = cleanMarkdown.downsizeTitles(sourceCode)
+        sourceCode = cleanMarkdown.spacePoints(sourceCode)
+        sourceCode = cleanMarkdown.addFrontmatter(sourceCode, title)
         print(sourceCode)
