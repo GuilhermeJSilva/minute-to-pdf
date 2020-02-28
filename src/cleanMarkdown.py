@@ -23,6 +23,6 @@ def spacePoints(sourceCode):
 
 
 def addFrontmatter(sourceCode, title):
-    frontmatter = f"---\ntitle: {title}\ngeometry:\n- margin=2cm\n---\n"
+    frontmatter = f"---\ntitle: \"{title}\"\ngeometry:\n- margin=2cm\n---\n"
 
     return frontmatter + sourceCode.strip()
