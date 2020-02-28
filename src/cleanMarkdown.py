@@ -6,7 +6,7 @@ def removeTags(sourceCode):
 
 
 def getTitle(sourceCode):
-    titleRegex = r"^# ([\w\ ]*)"
+    titleRegex = r"^# ([^\n]*)"
     return regex.search(titleRegex, sourceCode).group(1), regex.sub(titleRegex, "", sourceCode)
 
 

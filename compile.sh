@@ -11,4 +11,4 @@ fi
 FILENAME=$1
 OUTFILE=${2:-"${1%.*}.pdf"}
 
-python "$DIR/src/main.py" "$FILENAME" | pandoc -o "$OUTFILE"
+python3 "$DIR/src/main.py" "$FILENAME" | pandoc -o "$OUTFILE"
