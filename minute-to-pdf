@@ -29,9 +29,9 @@ if [[ "$DOWNLOAD_URL" == "" ]]; then
     OUTFILE=${OUTFILE:-"${FILENAME%.*}.pdf"}
 fi
 
-echo "FILENAME: $FILENAME"
-echo "DOWNLOAD_URL: $DOWNLOAD_URL"
-echo "OUTFILE: $OUTFILE"
+# echo "FILENAME: $FILENAME"
+# echo "DOWNLOAD_URL: $DOWNLOAD_URL"
+# echo "OUTFILE: $OUTFILE"
 
 if [[ "$DOWNLOAD_URL" == "" ]]; then
     python3 "$DIR/src/main.py" "$FILENAME" | pandoc -o "$OUTFILE"
@@ -40,6 +40,6 @@ else
         echo "Missing the output file. Use the option --out <filename> to specify one."
         exit -1
     fi
-
+    
     curl "$DOWNLOAD_URL/download" | python3 "$DIR/src/main.py" | pandoc -o "$OUTFILE"
 fi
