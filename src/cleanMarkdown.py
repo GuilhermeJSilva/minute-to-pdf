@@ -1,13 +1,14 @@
 import re as regex
+import sys
 
 
 def removeTags(sourceCode):
     return regex.sub(r"###### tags: .*", "", sourceCode)
 
 
-def getTitle(sourceCode):
+def removeTitle(sourceCode):
     titleRegex = r"^# ([^\n]*)"
-    return regex.search(titleRegex, sourceCode).group(1), regex.sub(titleRegex, "", sourceCode)
+    return regex.sub(titleRegex, "", sourceCode)
 
 
 def downsizeTitles(sourceCode):
@@ -18,11 +19,6 @@ def downsizeTitles(sourceCode):
 def spacePoints(sourceCode):
     pointRegex = r"(\*\*[\w\ ]*\*\*: [^\n]*)\n\*"
     while regex.search(pointRegex, sourceCode) is not None:
-        sourceCode = regex.sub(pointRegex, lambda match: f"{match.group(1)}\n\n*", sourceCode)
-    return sourceCode 
-
-
-def addFrontmatter(sourceCode, title):
-    frontmatter = f"---\ntitle: \"{title}\"\ngeometry:\n- margin=2cm\n---\n"
-
-    return frontmatter + sourceCode.strip()
+        sourceCode = regex.sub(
+            pointRegex, lambda match: f"{match.group(1)}\n\n*", sourceCode)
+    return sourceCode
