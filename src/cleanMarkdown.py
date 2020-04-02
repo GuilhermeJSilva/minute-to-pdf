@@ -22,3 +22,11 @@ def spacePoints(sourceCode):
         sourceCode = regex.sub(
             pointRegex, lambda match: f"{match.group(1)}\n\n*", sourceCode)
     return sourceCode
+
+
+def removeCommands(sourceCode, commands):
+    code = sourceCode
+    for command in commands:
+        commandRegex = regex.compile(f"!{command} ([^\n]*)")
+        code = regex.sub(commandRegex, "", code)
+    return code

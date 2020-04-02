@@ -26,11 +26,13 @@ def modifyCode(sourceCode, pipeline):
 
 def buildSource(sourceCode, operationUuid):
     getterPipeline = [
-        ("title", getters.getTitle)
+        ("title", getters.getTitle),
+        ("author", lambda code: getters.retrieveCommand(code, "author"))
     ]
 
     modifyPipeline = [
-        lambda sourceCode: replaceGraphViz(sourceCode, operationUuid),
+        lambda code: replaceGraphViz(code, operationUuid),
+        lambda code: cleanMarkdown.removeCommands(code, ["author"]),
         cleanMarkdown.removeTags,
         cleanMarkdown.removeTitle,
         cleanMarkdown.downsizeTitles,
