@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+import argparse
+
+argParser = argparse.ArgumentParser(
+    description="Pandoc wrapper for quick markdown transformation")
+
+argParser.add_argument(
+    "-i",
+    "--in",
+    type=str,
+    help="Path to markdown file to be converted to a PDF"
+)
+
+argParser.add_argument(
+    "-o",
+    "--out",
+    type=str,
+    help="Output file path"
+)
+
+argParser.add_argument(
+    "-u",
+    "--url",
+    type=str,
+    help="Download URI to the markdown source"
+)
+
+if __name__ == "__main__":
+    args = vars(argParser.parse_args())
+    if args["url"] is None and args["in"] is None:
+        print("There is no source, using stdout")
+
+    if args["url"] is not None:
+        pass
+    print(args)

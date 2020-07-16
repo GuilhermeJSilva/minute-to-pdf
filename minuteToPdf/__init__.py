@@ -44,13 +44,13 @@ def buildSource(sourceCode, operationUuid):
     return addFrontmatter(cleanCode, data)
 
 
-if __name__ == "__main__":
-    operationUuid = uuid.uuid1().hex
-    if len(sys.argv) < 2:
-        sourceCode = sys.stdin.read()
-        print(buildSource(sourceCode, operationUuid))
-    else:
-        filename = sys.argv[1]
-        with open(filename, 'r') as file:
-            sourceCode = file.read()
-            print(buildSource(sourceCode, operationUuid))
+# if __name__ == "__main__":
+#     operationUuid = uuid.uuid1().hex
+#     if len(sys.argv) < 2:
+#         sourceCode = sys.stdin.read()
+#         print(buildSource(sourceCode, operationUuid))
+#     else:
+#         filename = sys.argv[1]
+#         with open(filename, 'r') as file:
+#             sourceCode = file.read()
+#             print(buildSource(sourceCode, operationUuid))
