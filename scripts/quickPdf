@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os
+import sys
 import argparse
 import minuteToPdf
 
@@ -34,11 +36,18 @@ if __name__ == "__main__":
 
     if args["url"] is not None:
         markdownSource = minuteToPdf.getSourceFromURL(args["url"])
+        if args["out"] is None:
+            print("Please specify an output file name when using the download feature")
+            sys.exit(-1)
     elif args["in"] is not None:
         markdownSource = minuteToPdf.getSourceFromFile(args["in"])
+        if args["out"] is None:
+            args["out"] = os.path.splitext(args["in"])[0]+'.pdf' 
     else:
         markdownSource = minuteToPdf.getSourceFromStdin()
+        if args["out"] is None:
+            print("Please specify an output file name when pulling from stdin")
+            sys.exit(-1)
 
     parsedSource = minuteToPdf.parseMarkdown(markdownSource)
     minuteToPdf.convertToPdf(parsedSource, args["out"])
-    print(parsedSource)
