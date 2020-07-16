@@ -8,5 +8,7 @@ setup(name='quickPdf',
       packages=['minuteToPdf'],
       install_requires=[
           'graphviz',
+          'requests',
+          'pypandoc'
       ],
       scripts=["scripts/quickPdf"])

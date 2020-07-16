@@ -1,9 +1,11 @@
 import sys
+import requests
 import uuid
-import cleanMarkdown
-import getters
-from convGraph import replaceGraphViz
-from frontmatter import addFrontmatter
+from .convGraph import replaceGraphViz
+from .frontmatter import addFrontmatter
+import minuteToPdf.cleanMarkdown as cleanMarkdown
+import minuteToPdf.getters as getters
+import pypandoc
 
 
 def buildData(sourceCode, pipeline):
@@ -44,13 +46,22 @@ def buildSource(sourceCode, operationUuid):
     return addFrontmatter(cleanCode, data)
 
 
-# if __name__ == "__main__":
-#     operationUuid = uuid.uuid1().hex
-#     if len(sys.argv) < 2:
-#         sourceCode = sys.stdin.read()
-#         print(buildSource(sourceCode, operationUuid))
-#     else:
-#         filename = sys.argv[1]
-#         with open(filename, 'r') as file:
-#             sourceCode = file.read()
-#             print(buildSource(sourceCode, operationUuid))
+def parseMarkdown(sourceCode):
+    operationUuid = uuid.uuid1().hex
+    return buildSource(sourceCode, operationUuid)
+
+
+def getSourceFromURL(url: str):
+    return requests.get(url).text
+
+
+def getSourceFromFile(filename: str):
+    file = open(filename, "r")
+    return file.read()
+
+
+def getSourceFromStdin():
+    return sys.stdin.read()
+
+def convertToPdf(markdownSource: str, filename: str):
+    return pypandoc.convert_text(markdownSource, "pdf", format="md", outputfile=filename)
